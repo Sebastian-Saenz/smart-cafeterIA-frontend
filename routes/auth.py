@@ -19,8 +19,11 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 def google_auth():
     data = request.get_json()
     code = data.get("code")
-    if not code:
-        return jsonify({"error": "No code"}), 400
+    state_in = data.get("state")
+    if not code or not state_in:
+        return jsonify({"error": "No code o state"}), 400
+
+    session["oauth_state"] = state_in
 
     # 1. Creamos el dict client_config a partir de nuestro config
     client_config = {
@@ -39,6 +42,9 @@ def google_auth():
         scopes=current_app.config["SCOPES"]
     )
     flow.redirect_uri = current_app.config["REDIRECT_URI"]
+
+    if session.get("oauth_state") != state_in:
+        return jsonify({"error": "state no coincide"}), 400
 
     # 3. fetch_token
     flow.fetch_token(code=code)
@@ -71,12 +77,6 @@ def google_auth():
             "user": session["user"],
         }
     )
-
-
-@auth_bp.route("/callback")
-def callback():
-    return render_template("callback.html")
-
 
 @auth_bp.route("/logout")
 def logout():
