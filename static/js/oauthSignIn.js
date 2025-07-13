@@ -2,8 +2,11 @@ function oauthSignIn() {
   const redirect_base = document.querySelector('meta[name="redirect-uri"]')
     .getAttribute('content');
 
+  localStorage.removeItem('oauth_state');
+
   const state = 'random_' + Math.random().toString(36).substr(2);
   console.log('🔐 Generado state desde oauthSignIn:', state);
+  localStorage.setItem('oauth_state', state);
 
   const params = {
     client_id: '401510539727-kmju5p4gsbitskfkvu6q4cmr2a0ht3ng.apps.googleusercontent.com',
