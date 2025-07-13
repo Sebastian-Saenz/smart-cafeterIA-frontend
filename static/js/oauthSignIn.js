@@ -7,8 +7,9 @@ function oauthSignIn() {
     .getAttribute('content');
 
   const state = 'random_' + Math.random().toString(36).substr(2);
-  console.log('🔐 Generado state desde oauthSignIn:', state);
   localStorage.setItem('oauth_state', state);
+  console.log('🔐 Generado state desde oauthSignIn:', state);
+  console.log('Guardado como: ', localStorage.getItem('oauth_state'))
 
   const params = {
     client_id: google_client_id,
