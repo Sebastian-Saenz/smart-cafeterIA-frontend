@@ -1,8 +1,8 @@
 function oauthSignIn() {
-  const redirect_base = document.querySelector('meta[name="redirect-uri"]')
-    .getAttribute('content');
 
   localStorage.removeItem('oauth_state');
+  const redirect_base = document.querySelector('meta[name="redirect-uri"]')
+    .getAttribute('content');
 
   const state = 'random_' + Math.random().toString(36).substr(2);
   console.log('🔐 Generado state desde oauthSignIn:', state);
@@ -16,8 +16,6 @@ function oauthSignIn() {
     include_granted_scopes: 'true',
     state: state
   };
-  // Guarda el state para verificar luego
-  localStorage.setItem('oauth_state', params.state);
 
   const url = 'https://accounts.google.com/o/oauth2/v2/auth?' + new URLSearchParams(params);
   window.location = url;
