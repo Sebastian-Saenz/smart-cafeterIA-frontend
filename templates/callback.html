@@ -13,7 +13,7 @@
             const code = params.get('code');
             const state = params.get('state');
             const stateOut= localStorage.getItem('oauth_state');
-            console.log({ code, stateIn, stateOut });
+            console.log({ code, state, stateOut });
 
             if (code && state === stateOut) {
                 fetch('/auth/google', {
