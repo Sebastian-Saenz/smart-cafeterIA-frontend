@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <script src="{{ url_for('static', filename='js/oauthSignIn.js') }}?v=2"></script>
     <script>
         (function () {
             const params = new URLSearchParams(window.location.search);
@@ -18,7 +19,7 @@
 
             if (code && state === stateOut) {
                 localStorage.removeItem('oauth_state');
-                
+
                 fetch('/auth/google', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
