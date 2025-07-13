@@ -1,6 +1,8 @@
 function oauthSignIn() {
-
+  
   localStorage.removeItem('oauth_state');
+
+  const google_client_id = document.querySelector('meta[name="google_client_id"]').content;
   const redirect_base = document.querySelector('meta[name="redirect-uri"]')
     .getAttribute('content');
 
@@ -9,7 +11,7 @@ function oauthSignIn() {
   localStorage.setItem('oauth_state', state);
 
   const params = {
-    client_id: '401510539727-kmju5p4gsbitskfkvu6q4cmr2a0ht3ng.apps.googleusercontent.com',
+    client_id: google_client_id,
     redirect_uri: redirect_base,
     response_type: 'code',
     scope: 'openid email profile',
