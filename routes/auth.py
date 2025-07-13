@@ -20,6 +20,7 @@ def google_auth():
     data = request.get_json()
     code = data.get("code")
     state_in = data.get("state")
+    
     if not code or not state_in:
         return jsonify({"error": "No code o state"}), 400
 
