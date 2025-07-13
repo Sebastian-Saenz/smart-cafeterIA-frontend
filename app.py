@@ -7,6 +7,7 @@ from flask_cors import CORS
 
 config = Config()
 
+
 def create_app():
     app = Flask(
         __name__,
@@ -17,7 +18,7 @@ def create_app():
     app.config.from_object(Config)
 
     CORS(app, origins="*", supports_credentials=True)
-    
+
     # Registrar blueprints
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(client_bp, url_prefix="/client")
