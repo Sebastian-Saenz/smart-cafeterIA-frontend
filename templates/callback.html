@@ -12,7 +12,10 @@
             const params = new URLSearchParams(window.location.search);
             const code = params.get('code');
             const state = params.get('state');
-            if (code && state === localStorage.getItem('oauth_state')) {
+            const stateOut= localStorage.getItem('oauth_state');
+            console.log({ code, stateIn, stateOut });
+
+            if (code && state === stateOut) {
                 fetch('/auth/google', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -24,7 +27,7 @@
                         window.location = '/';
                     });
             } else {
-                console.error('Código o state inválido');
+                console.error('Codigo o state invlido');
             }
         })();
     </script>
